@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="donationSQL">
+
+	<!-- 결제하기: 데이터 불러오기 -->
+	<select id="paymentD" parameterType="int" resultType="board.bean.BoardDDTO">
+		SELECT * FROM BOARDD WHERE BDSEQ=#{bdSeqInt}
+ 	</select>
+ 	
+ 	<update id="paymentDForB" parameterType="java.util.Map"><!-- 수정 --> 	
+ 		UPDATE BOARDD SET BDCUMULATIVEAMOUNT = BDCUMULATIVEAMOUNT + #{totalPayment} WHERE BDSEQ=#{bdSeq}
+ 	</update>
+
+ 	<update id="paymentDForU" parameterType="java.util.Map">
+ 		UPDATE USERINFO SET DONATIONACTIVE = DONATIONACTIVE + #{totalPayment} WHERE USERID=#{userId}
+ 	</update>
+ 	
+ 	<!-- 
+ 	<update id="paymentDUpdate" parameterType="java.util.Map">
+	 	BEGIN
+	 		UPDATE BOARDD SET BDCUMULATIVEAMOUNT = BDCUMULATIVEAMOUNT + #{totalPayment} WHERE BDSEQ=#{bdSeq};
+	 		UPDATE USERINFO SET DONATIONACTIVE = DONATIONACTIVE + #{totalPayment} WHERE USERID=#{userId};
+	 		
+ 	</update> 	
+ 	 -->
+ 	 
+
+ 	 
+ 	<insert id="donationWrite" parameterType="board.bean.BoardDDTO">
+ 		insert into boardD values(SEQ_BOARDD.NEXTVAL, #{fileName, jdbcType=VARCHAR}, #{bdExpireDate, jdbcType=DATE}, #{bdSubject, jdbcType=VARCHAR}, #{bdGoalAmount}, #{bdCumulativeAmount}, #{bdContent,jdbcType=VARCHAR}, #{bdTagName, jdbcType=VARCHAR}, #{bdDonaGroup, jdbcType=VARCHAR}, #{bdImg}, #{bdThumbImg} ,#{categorydona})
+ 	</insert>
+ 	 
+ 	 
+ 	 <select id="card_view" resultType="board.bean.BoardDDTO">
+ 	 	SELECT * FROM BOARDD ORDER BY BDSEQ DESC
+ 	 </select>
+
+
+ 	<select id="boardview_list" parameterType="String" resultType="board.bean.BoardDDTO">
+ 		select * from boardD where bdseq = #{bdseq}
+ 	</select>
+	
+ 	<select id="donationUpdateLoad" parameterType="String" resultType="board.bean.BoardDDTO">
+ 		select * from boardD where bdSeq = #{bdSeq}
+ 	</select>
+
+	<delete id="donationDelete" parameterType="String">
+		delete from boardd where bdSeq = #{bdSeq}
+	</delete>
+
+
+
+
+
+</mapper>

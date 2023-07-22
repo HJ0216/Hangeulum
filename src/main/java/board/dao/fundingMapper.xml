@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fundingSQL">
+
+	<!-- 데이터 로드 -->
+	<select id="paymentF" parameterType="int" resultType="board.bean.BoardFDTO">
+		SELECT * FROM BOARDF WHERE BOARDFSEQ=#{boardFSeqInt}
+ 	</select>
+
+<!-- seller Email -->
+	<select id="paymentFGetEmail" parameterType="int" resultType="user.bean.UserDTO">
+		SELECT * FROM USERINFO WHERE USERID=(SELECT USERID FROM BOARDF WHERE BOARDFSEQ=#{boardFSeqInt})
+ 	</select>
+ 	
+<!-- 구매자 정보조회 -->
+	<select id="paymentFUserInfo" parameterType="String" resultType="user.bean.UserDTO">
+		SELECT * FROM USERINFO WHERE USERID=#{userId}
+ 	</select>
+
+
+<!-- update -->
+	<update id="paymentFUpdateForB" parameterType="java.util.Map">
+ 		UPDATE BOARDF SET BOARDFREALAMOUNT = BOARDFREALAMOUNT + #{totalPayment} WHERE BOARDFSEQ=#{boardFSeq}
+	</update>
+
+	<update id="paymentFUpdateForU" parameterType="java.util.Map">
+ 		UPDATE USERINFO SET FUNDINGACTIVE = FUNDINGACTIVE + #{totalPayment} WHERE USERID=#{userId}
+	</update>
+</mapper>
