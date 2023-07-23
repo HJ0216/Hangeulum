@@ -19,6 +19,4 @@ public interface SupportService {
 
 	public Map<String, Object> getSearchList(Map<String, String> map);
 
-
-
 }

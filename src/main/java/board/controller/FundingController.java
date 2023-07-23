@@ -15,46 +15,42 @@ import board.service.FundingService;
 import user.bean.UserDTO;
 
 @Controller
-@RequestMapping(value="funding")
+@RequestMapping(value = "funding")
 public class FundingController {
-	
+
 	@Autowired
 	private FundingService fundingService;
-	
+
 	@Autowired
 	private BoardFDTO boardFDTO;
-		
-	@GetMapping(value="paymentFForm")
+
+	@GetMapping(value = "paymentFForm")
 	public String paymentFForm() {
 		return "views/funding/paymentFForm";
 	}
-	
-	@PostMapping(value="paymentF")
+
+	@PostMapping(value = "paymentF")
 	@ResponseBody
 	public BoardFDTO paymentF(@RequestParam String boardFSeq) {
 		return fundingService.paymentF(boardFSeq);
 	}
 
-	@PostMapping(value="paymentFGetEmail")
+	@PostMapping(value = "paymentFGetEmail")
 	@ResponseBody
 	public UserDTO paymentFGetEmail(@RequestParam String boardFSeq) {
 		return fundingService.paymentFGetEmail(boardFSeq);
 	}
 
-	@PostMapping(value="paymentFUserInfo")
+	@PostMapping(value = "paymentFUserInfo")
 	@ResponseBody
 	public UserDTO paymentFUserInfo(@RequestParam String userId) {
 		return fundingService.paymentFUserInfo(userId);
 	}
-	
 
-
-	@PostMapping(value="paymentFUpdate")
+	@PostMapping(value = "paymentFUpdate")
 	@ResponseBody
 	public void paymentFUpdate(@RequestParam Map<String, Object> map) {
 		fundingService.paymentFUpdate(map);
 	}
 
-	
-	
 }

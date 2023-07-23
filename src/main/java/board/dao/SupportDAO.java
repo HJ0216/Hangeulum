@@ -13,17 +13,14 @@ public interface SupportDAO {
 
 	public int getTotalA();
 
-
 	public List<NoticeDTO> getSearchList(Map<String, Object> map2);
 
 	public int getSearchTotalA(Map<String, Object> map2);
 
-	
 	public NoticeDTO getNoticeView(String noticeSeq);
 
 	public List<Object> getNoitceListPreNext(String noticeSeq);
 
 	public void deleteNotice(String noticeSeq);
-
 
 }

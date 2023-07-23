@@ -22,7 +22,7 @@ public class BoardDDTO {
 	private String bdTagName;
 	private String bdDonaGroup;
 	private String bdImg;
-	private String bdThumbImg; 
+	private String bdThumbImg;
 	private String categorydona;
-	
+
 }

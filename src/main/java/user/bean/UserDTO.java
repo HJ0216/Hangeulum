@@ -1,10 +1,7 @@
 package user.bean;
 
-
-
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Getter
 @Setter
@@ -16,5 +13,5 @@ public class UserDTO {
 	private String userphone;
 	private String gender;
 	private String useremail;
-	
+
 }

@@ -14,11 +14,10 @@ public interface UserDAO {
 
 	public UserDTO getUser(String id);
 
-	public String login(Map<String,String> map);
+	public String login(Map<String, String> map);
 
 	public String kakaologin(String kakao_email);
 
 	public String findIdComplete(Map<String, String> map);
-		
-	
+
 }

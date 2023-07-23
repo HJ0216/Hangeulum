@@ -11,10 +11,10 @@ import user.bean.UserDTO;
 
 @Service
 public class FundingServiceImpl implements FundingService {
-	
+
 	@Autowired
 	private FundingDAO fundingDAO;
-	
+
 	@Autowired
 	private BoardFDTO boardFDTO;
 

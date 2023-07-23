@@ -14,10 +14,10 @@ public class DonationServiceImpl implements DonationService {
 
 	@Autowired
 	private DonationDAO donationDAO;
-	
+
 	@Autowired
 	private BoardDDTO boardDDTO;
-	
+
 	@Override
 	public BoardDDTO paymentD(String bdSeq) {
 		return donationDAO.payemntD(bdSeq);
@@ -27,25 +27,21 @@ public class DonationServiceImpl implements DonationService {
 	public void paymentDUpdate(Map<String, Object> map) {
 		donationDAO.paymentDUpdate(map);
 	}
-	
-	
-	
+
 	@Override
 	public void donationWrite(BoardDDTO boardDDTO) {
 		donationDAO.donationWrite(boardDDTO);
-		
-	}
 
+	}
 
 	@Override
 	public List<BoardDDTO> card_view() {
 		return donationDAO.card_view();
 	}
 
-
 	@Override
 	public BoardDDTO boardview_list(String bdseq) {
-		
+
 		return donationDAO.boardview_list(bdseq);
 	}
 
@@ -58,8 +54,5 @@ public class DonationServiceImpl implements DonationService {
 	public void donationDelete(String bdSeq) {
 		donationDAO.donationDelete(bdSeq);
 	}
-
-
-	
 
 }

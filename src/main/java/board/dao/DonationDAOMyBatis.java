@@ -29,30 +29,24 @@ public class DonationDAOMyBatis implements DonationDAO {
 		sqlSession.update("donationSQL.paymentDForU", map);
 	}
 
-	
-
 	@Override
 	public void donationWrite(BoardDDTO boardDDTO) {
 		System.out.println("===> " + boardDDTO.getBdExpireDate());
-		
+
 		System.out.println(boardDDTO.getFileName());
 		boardDDTO.setFileName(boardDDTO.getFileName());
-		sqlSession.insert("donationSQL.donationWrite",boardDDTO);
-		
+		sqlSession.insert("donationSQL.donationWrite", boardDDTO);
+
 	}
 
-	
-	
 	@Override
 	public List<BoardDDTO> card_view() {
 		return sqlSession.selectList("donationSQL.card_view");
 	}
 
-	
-	
 	@Override
-	public BoardDDTO boardview_list(String bdseq) {		
-		return sqlSession.selectOne("donationSQL.boardview_list",bdseq);
+	public BoardDDTO boardview_list(String bdseq) {
+		return sqlSession.selectOne("donationSQL.boardview_list", bdseq);
 	}
 
 	@Override
@@ -64,6 +58,5 @@ public class DonationDAOMyBatis implements DonationDAO {
 	public void donationDelete(String bdSeq) {
 		sqlSession.delete("donationSQL.donationDelete", bdSeq);
 	}
-
 
 }

@@ -12,5 +12,5 @@ public class NoticeDTO {
 	private int noticeSeq;
 	private String noticeSubject;
 	private String noticeContent;
-	private String noticeDate;	
+	private String noticeDate;
 }

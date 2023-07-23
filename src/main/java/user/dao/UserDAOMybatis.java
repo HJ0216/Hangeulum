@@ -16,45 +16,41 @@ import user.bean.UserDTO;
 @Transactional
 public class UserDAOMybatis implements UserDAO {
 	@Autowired
-	private SqlSession sqlsession;	
-	
+	private SqlSession sqlsession;
+
 	HttpSession session;
-	
+
 	@Override
 	public void join(UserDTO userDTO) {
 		System.out.println(userDTO.getUserpassword());
-		sqlsession.insert("userSQL.join",userDTO);
+		sqlsession.insert("userSQL.join", userDTO);
 		System.out.println("회원가입성공");
 	}
 
 	@Override
 	public UserDTO getUser(String id) {
 
-		return sqlsession.selectOne("userSQL.getUser",id);
+		return sqlsession.selectOne("userSQL.getUser", id);
 	}
 
 	@Override
-	public String login(Map<String,String> map) {
-		
-		
-		return sqlsession.selectOne("userSQL.login", map);
+	public String login(Map<String, String> map) {
 
-		
+		return sqlsession.selectOne("userSQL.login", map);
 
 	}
 
 	@Override
 	public String kakaologin(String kakao_email) {
-		String userid=sqlsession.selectOne("userSQL.kakaologin",kakao_email);
-		
+		String userid = sqlsession.selectOne("userSQL.kakaologin", kakao_email);
+
 		return userid;
 
-		
 	}
 
 	@Override
 	public String findIdComplete(Map<String, String> map) {
-		String userid = sqlsession.selectOne("userSQL.findIdComplete",map);
+		String userid = sqlsession.selectOne("userSQL.findIdComplete", map);
 		return userid;
 	}
 }

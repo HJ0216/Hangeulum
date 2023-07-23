@@ -25,7 +25,7 @@ public class SpringConfiguration {
 	private String username;
 	@Value("${jdbc.password}")
 	private String password;
-	
+
 	@Bean
 	public BasicDataSource dataSource() {
 		BasicDataSource basicDataSource = new BasicDataSource();
@@ -33,54 +33,49 @@ public class SpringConfiguration {
 		basicDataSource.setUrl(url);
 		basicDataSource.setUsername(username);
 		basicDataSource.setPassword(password);
-		
+
 		return basicDataSource;
 	}
-	
+
 	@Bean
-	public SqlSessionFactory sqlSessionFactory() throws Exception{
+	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-		sqlSessionFactoryBean.setDataSource(dataSource());		
+		sqlSessionFactoryBean.setDataSource(dataSource());
 		sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("spring/mybatis-config.xml"));
 		sqlSessionFactoryBean.setMapperLocations(new ClassPathResource("user/dao/userMapper.xml"),
-												 new ClassPathResource("board/dao/supportMapper.xml"),
-												 new ClassPathResource("board/dao/donationMapper.xml"),
-												 new ClassPathResource("board/dao/fundingMapper.xml"));
-		
+				new ClassPathResource("board/dao/supportMapper.xml"),
+				new ClassPathResource("board/dao/donationMapper.xml"),
+				new ClassPathResource("board/dao/fundingMapper.xml"));
+
 		return sqlSessionFactoryBean.getObject(); // sqlSessionFactory를 리턴해주는 메소드
 
 	}
+
 	@Bean
-	public SqlSessionTemplate sqlSession() throws Exception{
+	public SqlSessionTemplate sqlSession() throws Exception {
 		SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory());
 		return sqlSessionTemplate;
 	}
-	
+
 	@Bean
-	public DataSourceTransactionManager transactionManager(){
+	public DataSourceTransactionManager transactionManager() {
 		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(dataSource());
 		return dataSourceTransactionManager;
 	}
-	
-	
+
 }
 
 /*
- 만약에 mapper.xml이 여러개일 경우
-1.
-sqlSessionFactoryBean.setMapperLocations(new ClassPathResource("user/dao/userMapper.xml"),
-										new ClassPathResource("member/dao/memberMapper.xml"),
-										new ClassPathResource("board/dao/boardMapper.xml"),
-										...);
-
-2.
-필드에다가
-@Autowired
-private ApplicationContext context;
-*/
- 	//sqlSessionFactoryBean.setMapperLocations(context.getResources("classpath:*/dao/*Mapper.xml")
-
- 
+ * 만약에 mapper.xml이 여러개일 경우 1. sqlSessionFactoryBean.setMapperLocations(new
+ * ClassPathResource("user/dao/userMapper.xml"), new
+ * ClassPathResource("member/dao/memberMapper.xml"), new
+ * ClassPathResource("board/dao/boardMapper.xml"), ...);
+ * 
+ * 2. 필드에다가
+ * 
+ * @Autowired private ApplicationContext context;
+ */
+// sqlSessionFactoryBean.setMapperLocations(context.getResources("classpath:*/dao/*Mapper.xml")
 
 //SpringConfiguration 일반 자바 파일이 아니다.
 //applicationContext.xml과 같은 환경설정 파일이다.

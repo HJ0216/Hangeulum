@@ -16,7 +16,7 @@ public class FundingDAOMyBatis implements FundingDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	@Override
 	public BoardFDTO paymentF(String boardFSeq) {
 		int boardFSeqInt = Integer.parseInt(boardFSeq);
@@ -33,7 +33,6 @@ public class FundingDAOMyBatis implements FundingDAO {
 		int boardFSeqInt = Integer.parseInt(boardFSeq);
 		return sqlSession.selectOne("fundingSQL.paymentFGetEmail", boardFSeqInt);
 	}
-
 
 	@Override
 	public void paymentFUpdate(Map<String, Object> map) {
