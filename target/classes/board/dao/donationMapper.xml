@@ -12,7 +12,8 @@
 		SELECT * FROM BOARDD WHERE BDSEQ=#{bdSeqInt}
 	</select>
 
-	<update id="paymentDForB" parameterType="java.util.Map"><!-- 수정 -->
+	<!-- 업데이트 -->
+	<update id="paymentDForB" parameterType="java.util.Map">
 		UPDATE BOARDD SET BDCUMULATIVEAMOUNT = BDCUMULATIVEAMOUNT +
 		#{totalPayment} WHERE BDSEQ=#{bdSeq}
 	</update>
@@ -29,6 +30,7 @@
 
 
 
+	<!-- 기부 게시글 -->
 	<insert id="donationWrite" parameterType="board.bean.BoardDDTO">
 		insert into boardD values(SEQ_BOARDD.NEXTVAL, #{fileName, jdbcType=VARCHAR},
 		#{bdExpireDate, jdbcType=DATE}, #{bdSubject, jdbcType=VARCHAR},
@@ -36,17 +38,6 @@
 		#{bdTagName, jdbcType=VARCHAR}, #{bdDonaGroup, jdbcType=VARCHAR},
 		#{bdImg}, #{bdThumbImg} ,#{categorydona})
 	</insert>
-
-
-	<select id="card_view" resultType="board.bean.BoardDDTO">
-		SELECT * FROM BOARDD ORDER BY BDSEQ DESC
-	</select>
-
-
-	<select id="boardview_list" parameterType="String"
-		resultType="board.bean.BoardDDTO">
-		select * from boardD where bdseq = #{bdseq}
-	</select>
 
 	<select id="donationUpdateLoad" parameterType="String"
 		resultType="board.bean.BoardDDTO">
@@ -59,6 +50,42 @@
 	</delete>
 
 
+
+	<!-- 기부 메인 -->
+	<select id="card_view" resultType="board.bean.BoardDDTO">
+		SELECT * FROM BOARDD ORDER BY BDSEQ DESC
+	</select>
+
+	<select id="boardview_list" parameterType="String"
+		resultType="board.bean.BoardDDTO">
+		select * from boardD where bdseq = #{bdseq}
+	</select>
+
+	<select id="getRelatedPostsByCategory" parameterType="String" resultType="board.bean.BoardDDTO">
+    SELECT * FROM boardD WHERE categorydona = #{category}
+	</select>
+
+	<!-- 정렬 -->	
+	<select id="donationSort" parameterType="String" resultType="board.bean.BoardDDTO">
+	  <choose>
+	    <!-- option1: 최신 순 -->
+	    <when test="selectbox == 'option1'"><!-- selectbox: option -->
+	      select * from boardd order by BDSTARTDATE desc
+	    </when>
+	    <!-- option2: 모금률 높은 순 -->
+	    <when test="selectbox == 'option2'">
+	      select * from boardd order by (BDCUMULATIVEAMOUNT/BDGOALAMOUNT) desc
+	    </when>
+	    <!-- option3: 모금액 적은 순 -->
+	    <when test="selectbox == 'option3'">
+	      select * from boardd order by BDCUMULATIVEAMOUNT
+	    </when>
+	    <!-- 기본값 -->
+	    <otherwise>
+	      select * from boardd order by BDSTARTDATE desc -- 기본적으로 최신 순으로 정렬
+	    </otherwise>
+	  </choose>
+	</select>
 
 
 
